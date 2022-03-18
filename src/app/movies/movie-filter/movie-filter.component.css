@@ -6,3 +6,8 @@ form mat-form-field {
   width: 30%;
   margin-right: 1rem;
 }
+
+.clear-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

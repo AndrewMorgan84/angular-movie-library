@@ -21,6 +21,7 @@ p {
 img {
   width: 225px;
   height: 300px;
+  border-radius: 3%;
 }
 
 button {
