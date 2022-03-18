@@ -1,3 +1,4 @@
+import { actorCreationDTO } from './../actors,model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,7 +10,16 @@ import { ActivatedRoute } from '@angular/router';
 export class EditActorComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) {}
 
+  model: actorCreationDTO = {
+    name: 'Tom Hanks',
+    dateOfBirth: new Date(),
+  };
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {});
+  }
+
+  saveChanges(actorCreationDTO: actorCreationDTO) {
+    console.log(actorCreationDTO);
   }
 }
