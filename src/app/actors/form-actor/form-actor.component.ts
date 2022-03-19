@@ -29,6 +29,7 @@ export class FormActorComponent implements OnInit {
       ],
       dateOfBirth: '',
       picture: '',
+      biography: '',
     });
 
     if (this.model !== undefined) {
@@ -42,5 +43,9 @@ export class FormActorComponent implements OnInit {
 
   onImageSelected(image: File) {
     this.form.get('picture')?.setValue(image);
+  }
+
+  changeMarkdown(content) {
+    this.form.get('biography').setValue(content);
   }
 }
