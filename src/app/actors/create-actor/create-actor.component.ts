@@ -1,4 +1,4 @@
-import { actorCreationDTO } from './../actors,model';
+import { actorCreationDTO } from '../actors.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
