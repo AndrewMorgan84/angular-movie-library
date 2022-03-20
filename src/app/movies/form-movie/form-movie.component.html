@@ -41,6 +41,13 @@
     [SelectedItems]="selectedGenres"
   ></app-multiple-selector>
 
+  <h4>Select Movie Theaters</h4>
+
+  <app-multiple-selector
+    [NonSelectedItems]="nonSelectedMovieTheaters"
+    [SelectedItems]="selectedMovieTheaters"
+  ></app-multiple-selector>
+
   <div>
     <button mat-flat-button color="primary" [disabled]="form.invalid">
       Save Changes
