@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-actors-autocomplete',
@@ -24,7 +25,7 @@ export class ActorsAutocompleteComponent implements OnInit {
         'https://m.media-amazon.com/images/M/MV5BMTQ2MjMwNDA3Nl5BMl5BanBnXkFtZTcwMTA2NDY3NQ@@._V1_UY317_CR2,0,214,317_AL_.jpg',
     },
     {
-      name: 'arnold schwarzenegger',
+      name: 'Arnold Schwarzenegger',
       picture:
         'https://m.media-amazon.com/images/M/MV5BMTI3MDc4NzUyMV5BMl5BanBnXkFtZTcwMTQyMTc5MQ@@._V1_UY317_CR19,0,214,317_AL_.jpg',
     },
@@ -33,6 +34,10 @@ export class ActorsAutocompleteComponent implements OnInit {
   selectedActors = [];
 
   originalActors = this.actors;
+
+  columnsToDisplay = ['picture', 'name', 'character', 'actions'];
+
+  @ViewChild(MatTable) table: MatTable<any>;
 
   ngOnInit(): void {
     this.control.valueChanges.subscribe((value) => {
@@ -46,5 +51,14 @@ export class ActorsAutocompleteComponent implements OnInit {
   optionSelected(event: MatAutocompleteSelectedEvent) {
     this.selectedActors.push(event.option.value);
     this.control.patchValue('');
+    if (this.table !== undefined) {
+      this.table.renderRows();
+    }
+  }
+
+  remove(actor) {
+    const index = this.selectedActors.findIndex((a) => a.name === actor.name);
+    this.selectedActors.splice(index, 1);
+    this.table.renderRows();
   }
 }
