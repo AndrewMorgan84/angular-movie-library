@@ -46,7 +46,7 @@ export class MapComponent implements OnInit {
       }),
     ],
     zoom: 16,
-    center: latLng(50.722163462381815, -3.5372352699050684),
+    center: latLng(50.72861383179241, -3.522167801423848),
   };
 
   layers: Marker<any>[] = [];
