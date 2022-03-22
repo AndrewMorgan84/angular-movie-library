@@ -1,3 +1,4 @@
+import { GenresService } from './../genres.service';
 import { genreCreationDTO } from './../genres.model';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -8,12 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-genre.component.css'],
 })
 export class CreateGenreComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private genreService: GenresService) {}
 
   ngOnInit(): void {}
 
   saveChanges(genreCreationDTO: genreCreationDTO) {
-    console.log(genreCreationDTO);
-    this.router.navigate(['/genres']);
+    this.genreService.create(genreCreationDTO).subscribe(
+      () => {
+        this.router.navigate(['/genres']);
+      },
+      (error) => console.error(error)
+    );
   }
 }
