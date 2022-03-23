@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { ActorsService } from './../actors.service';
 import { actorCreationDTO } from '../actors.model';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,11 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-actor.component.css'],
 })
 export class CreateActorComponent implements OnInit {
-  constructor() {}
+  constructor(private actorsService: ActorsService, private router: Router) {}
 
   ngOnInit(): void {}
 
   saveChanges(actorCreationDTO: actorCreationDTO) {
-    console.log(actorCreationDTO);
+    this.actorsService.create(actorCreationDTO).subscribe(() => {
+      this.router.navigate(['/actors']);
+    });
   }
 }
