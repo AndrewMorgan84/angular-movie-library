@@ -14,10 +14,16 @@ export class IndexMovieTheaterComponent implements OnInit {
   columnsToDisplay = ['name', 'actions'];
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData() {
     this.movieTheatersService
       .get()
       .subscribe((movieTheaters) => (this.movieTheaters = movieTheaters));
   }
 
-  delete() {}
+  delete(id: number) {
+    this.movieTheatersService.delete(id).subscribe(() => this.loadData());
+  }
 }

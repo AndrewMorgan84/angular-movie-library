@@ -19,7 +19,19 @@ export class MovieTheatersService {
     return this.http.get<movieTheatersDTO[]>(this.apiUrl);
   }
 
+  getById(id: number): Observable<movieTheatersDTO> {
+    return this.http.get<movieTheatersDTO>(`${this.apiUrl}/${id}`);
+  }
+
   create(movieTheatersCreationDTO: movieTheatersCreationDTO) {
     return this.http.post(this.apiUrl, movieTheatersCreationDTO);
+  }
+
+  public edit(id: number, movieTheatersCreationDTO: movieTheatersCreationDTO) {
+    return this.http.put(`${this.apiUrl}/${id}`, movieTheatersCreationDTO);
+  }
+
+  public delete(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }
