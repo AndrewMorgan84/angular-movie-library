@@ -30,6 +30,15 @@ export interface MoviePostGetDTO {
   movieTheaters: movieTheatersDTO[];
 }
 
+export interface MoviePutGetDTO {
+  movie: movieDTO;
+  selectedGenres: genreDTO[];
+  nonSelectedGenres: genreDTO[];
+  selectedMovieTheaters: movieTheatersDTO[];
+  nonSelectedMovieTheaters: movieTheatersDTO[];
+  actors: actorsMovieDTO[];
+}
+
 export interface HomeDTO {
   inTheaters: movieDTO[];
   upcomingReleases: movieDTO[];

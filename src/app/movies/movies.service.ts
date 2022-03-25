@@ -7,6 +7,7 @@ import {
   movieCreationDTO,
   movieDTO,
   HomeDTO,
+  MoviePutGetDTO,
 } from './movies.model';
 import { formatDateFormData } from '../utilities/utils';
 
@@ -19,6 +20,15 @@ export class MoviesService {
 
   public getHomePageMovies(): Observable<HomeDTO> {
     return this.http.get<HomeDTO>(this.apiURL);
+  }
+
+  public putGet(id: number): Observable<MoviePutGetDTO> {
+    return this.http.get<MoviePutGetDTO>(`${this.apiURL}/putget/${id}`);
+  }
+
+  public edit(id: number, movieCreationDTO: movieCreationDTO) {
+    const formData = this.buildFormData(movieCreationDTO);
+    return this.http.put(`${this.apiURL}/${id}`, formData);
   }
 
   public getById(id: number): Observable<movieDTO> {
