@@ -137,6 +137,10 @@ export class MovieFilterComponent implements OnInit {
     this.filterMovies(this.form.value);
   }
 
+  onDelete() {
+    this.filterMovies(this.form.value);
+  }
+
   clearForm() {
     this.form.patchValue(this.initialFormValues);
   }

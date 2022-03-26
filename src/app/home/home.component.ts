@@ -9,11 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   constructor(private moviesService: MoviesService) {}
   ngOnInit(): void {
+    this.loadData();
+  }
+  moviesInTheaters: any;
+  moviesFutureReleases: any;
+
+  loadData() {
     this.moviesService.getHomePageMovies().subscribe((homeDTO) => {
       this.moviesFutureReleases = homeDTO.upcomingReleases;
       this.moviesInTheaters = homeDTO.inTheaters;
     });
   }
-  moviesInTheaters: any;
-  moviesFutureReleases: any;
+
+  onDelete() {
+    this.loadData();
+  }
 }

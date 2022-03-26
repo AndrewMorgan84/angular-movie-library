@@ -1,5 +1,5 @@
 import { MoviesService } from './../movies.service';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-movies-list',
@@ -14,7 +14,12 @@ export class MoviesListComponent {
   @Input()
   movies;
 
-  remove(index: number) {
-    this.movies.splice(index, 1);
+  @Output()
+  onDelete = new EventEmitter<void>();
+
+  remove(id: number) {
+    this.moviesService.delete(id).subscribe(() => {
+      this.onDelete.emit();
+    });
   }
 }
