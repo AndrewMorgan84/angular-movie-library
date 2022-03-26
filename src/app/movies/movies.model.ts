@@ -14,6 +14,7 @@ export interface movieCreationDTO {
 }
 
 export interface movieDTO {
+  id: number;
   title: string;
   summary: string;
   poster: string;

@@ -1,15 +1,15 @@
-import { Observable } from 'rxjs';
-import { environment } from './../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { formatDateFormData } from '../utilities/utils';
 import {
-  MoviePostGetDTO,
+  HomeDTO,
   movieCreationDTO,
   movieDTO,
-  HomeDTO,
+  MoviePostGetDTO,
   MoviePutGetDTO,
 } from './movies.model';
-import { formatDateFormData } from '../utilities/utils';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class MoviesService {
   }
 
   public edit(id: number, movieCreationDTO: movieCreationDTO) {
-    const formData = this.buildFormData(movieCreationDTO);
+    const formData = this.BuildFormData(movieCreationDTO);
     return this.http.put(`${this.apiURL}/${id}`, formData);
   }
 
@@ -35,23 +35,34 @@ export class MoviesService {
     return this.http.get<movieDTO>(`${this.apiURL}/${id}`);
   }
 
+  public filter(values: any): Observable<any> {
+    const params = new HttpParams({ fromObject: values });
+    return this.http.get<movieDTO[]>(`${this.apiURL}/filter`, {
+      params,
+      observe: 'response',
+    });
+  }
+
   public postGet(): Observable<MoviePostGetDTO> {
     return this.http.get<MoviePostGetDTO>(`${this.apiURL}/postget`);
   }
 
-  public create(movieCreationDTO: movieCreationDTO) {
-    const formData = this.buildFormData(movieCreationDTO);
-    return this.http.post(this.apiURL, formData);
+  public create(movieCreationDTO: movieCreationDTO): Observable<number> {
+    const formData = this.BuildFormData(movieCreationDTO);
+    return this.http.post<number>(this.apiURL, formData);
   }
 
-  private buildFormData(movie: movieCreationDTO): FormData {
+  public delete(id: number) {
+    return this.http.delete(`${this.apiURL}/${id}`);
+  }
+
+  private BuildFormData(movie: movieCreationDTO): FormData {
     const formData = new FormData();
 
     formData.append('title', movie.title);
     formData.append('summary', movie.summary);
     formData.append('trailer', movie.trailer);
     formData.append('inTheaters', String(movie.inTheaters));
-
     if (movie.releaseDate) {
       formData.append('releaseDate', formatDateFormData(movie.releaseDate));
     }

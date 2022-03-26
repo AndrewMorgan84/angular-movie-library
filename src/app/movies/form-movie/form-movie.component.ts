@@ -1,8 +1,8 @@
-import { actorsMovieDTO } from './../../actors/actors.model';
-import { multipleSelectorModel } from './../../utilities/multiple-selector/multiple-selector.model';
-import { movieDTO, movieCreationDTO } from './../movies.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { actorsMovieDTO } from 'src/app/actors/actors.model';
+import { multipleSelectorModel } from 'src/app/utilities/multiple-selector/multiple-selector.model';
+import { movieCreationDTO, movieDTO } from '../movies.model';
 
 @Component({
   selector: 'app-form-movie',
@@ -69,6 +69,7 @@ export class FormMovieComponent implements OnInit {
   saveChanges() {
     const genresIds = this.selectedGenres.map((value) => value.key);
     this.form.get('genresIds').setValue(genresIds);
+
     const movieTheatersIds = this.selectedMovieTheaters.map(
       (value) => value.key
     );
@@ -77,7 +78,6 @@ export class FormMovieComponent implements OnInit {
     const actors = this.selectedActors.map((val) => {
       return { id: val.id, character: val.character };
     });
-
     this.form.get('actors').setValue(actors);
 
     this.onSaveChanges.emit(this.form.value);

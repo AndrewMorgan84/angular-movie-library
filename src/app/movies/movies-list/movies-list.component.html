@@ -6,20 +6,32 @@
         class="movie-container"
       >
         <a [routerLink]="'/movie/' + movie.id">
-          <img [src]="movie.poster" alt="poster" />
+          <img [src]="movie.poster" alt="Poster" />
         </a>
         <p>
           <a [routerLink]="'/movie/' + movie.id">{{ movie.title }}</a>
         </p>
         <div>
           <a
-            [routerLink]="'/movies/edit' + movie.id"
+            [routerLink]="'/movies/edit/' + movie.id"
             mat-flat-button
             color="primary"
           >
             Edit
           </a>
-          <button mat-flat-button color="warn" type="button">Delete</button>
+          <button
+            mat-flat-button
+            color="warn"
+            type="button"
+            [swal]="{
+              title: 'Confirmation',
+              text: 'Are you sure you want to delete this?',
+              showCancelButton: true
+            }"
+            (confirm)="remove(movie.id)"
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>

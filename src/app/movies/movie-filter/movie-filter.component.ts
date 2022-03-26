@@ -1,3 +1,8 @@
+import { HttpResponse } from '@angular/common/http';
+import { GenresService } from './../../genres/genres.service';
+import { movieDTO } from './../movies.model';
+import { genreDTO } from './../../genres/genres.model';
+import { MoviesService } from './../movies.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { __values } from 'tslib';
@@ -8,36 +13,21 @@ import { __values } from 'tslib';
   styleUrls: ['./movie-filter.component.css'],
 })
 export class MovieFilterComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private moviesService: MoviesService,
+    private genresService: GenresService
+  ) {}
 
   form!: FormGroup;
 
-  genres = [
-    { id: 1, name: 'Drama' },
-    { id: 2, name: 'Comedy' },
-    { id: 3, name: 'Horror' },
-    { id: 4, name: 'Crime' },
-  ];
+  genres: genreDTO[] = [];
 
-  movies = [
-    {
-      title: 'Spider Man',
-      poster:
-        'https://www.themoviedb.org/t/p/original/rweIrveL43TaxUN0akQEaAXL6x0.jpg',
-    },
-    {
-      title: 'Moana',
-      poster:
-        'https://www.themoviedb.org/t/p/original/6iHQpFiTg0QbKYac5Mprhx7tXo3.jpg',
-    },
-    {
-      title: 'Inception',
-      poster:
-        'https://cdn.shopify.com/s/files/1/1416/8662/products/inception_2010_french_original_film_art_399c9bc0-2060-432c-a24b-873162f00abd_600x.jpg?v=1643315917',
-    },
-  ];
+  movies: movieDTO[] = [];
 
-  originalMovies = this.movies;
+  currentPage = 1;
+  recordsPerPage = 10;
+  initialFormValues: any;
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -47,21 +37,31 @@ export class MovieFilterComponent implements OnInit {
       inTheaters: false,
     });
 
-    this.form.valueChanges.subscribe((values) => {
-      this.movies = this.originalMovies;
-      this.filterMovies(values);
+    this.initialFormValues = this.form.value;
+
+    this.genresService.getAll().subscribe((genres) => {
+      this.genres = genres;
+
+      this.filterMovies(this.form.value);
+
+      this.form.valueChanges.subscribe((values) => {
+        this.filterMovies(values);
+      });
     });
   }
 
   filterMovies(values: any) {
-    if (values.title) {
-      this.movies = this.movies.filter(
-        (movie) => movie.title.indexOf(values.title) !== -1
-      );
-    }
+    values.page = this.currentPage;
+    values.recordsPerPage = this.recordsPerPage;
+
+    this.moviesService
+      .filter(values)
+      .subscribe((response: HttpResponse<movieDTO[]>) => {
+        this.movies = response.body;
+      });
   }
 
   clearForm() {
-    this.form.reset();
+    this.form.patchValue(this.initialFormValues);
   }
 }

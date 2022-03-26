@@ -1,9 +1,9 @@
-import { actorsMovieDTO } from './../../actors/actors.model';
-import { multipleSelectorModel } from './../../utilities/multiple-selector/multiple-selector.model';
-import { MoviesService } from './../movies.service';
-import { movieCreationDTO, movieDTO } from './../movies.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { actorsMovieDTO } from 'src/app/actors/actors.model';
+import { multipleSelectorModel } from 'src/app/utilities/multiple-selector/multiple-selector.model';
+import { movieCreationDTO, movieDTO } from '../movies.model';
+import { MoviesService } from '../movies.service';
 
 @Component({
   selector: 'app-edit-movie',
@@ -13,7 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 export class EditMovieComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
-    private moviesService: MoviesService
+    private moviesService: MoviesService,
+    private router: Router
   ) {}
 
   model: movieDTO;
@@ -60,5 +61,9 @@ export class EditMovieComponent implements OnInit {
     });
   }
 
-  onSaveChanges(movieCreationDTO: movieCreationDTO) {}
+  saveChanges(movieCreationDTO: movieCreationDTO) {
+    this.moviesService.edit(this.model.id, movieCreationDTO).subscribe(() => {
+      this.router.navigate(['/movie/' + this.model.id]);
+    });
+  }
 }

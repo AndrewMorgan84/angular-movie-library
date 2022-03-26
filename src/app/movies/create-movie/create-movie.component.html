@@ -2,9 +2,9 @@
 
 <app-form-movie
   *ngIf="nonSelectedGenres"
-  (onSaveChanges)="saveChanges($event)"
   [nonSelectedGenres]="nonSelectedGenres"
   [nonSelectedMovieTheaters]="nonSelectedMovieTheaters"
+  (onSaveChanges)="saveChanges($event)"
 ></app-form-movie>
 
 <mat-spinner *ngIf="!nonSelectedGenres"></mat-spinner>

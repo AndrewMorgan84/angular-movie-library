@@ -17,24 +17,19 @@ import { CreateGenreComponent } from './genres/create-genre/create-genre.compone
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-
   { path: 'genres', component: IndexGenresComponent },
   { path: 'genres/create', component: CreateGenreComponent },
   { path: 'genres/edit/:id', component: EditGenreComponent },
-
   { path: 'actors', component: IndexActorsComponent },
   { path: 'actors/create', component: CreateActorComponent },
   { path: 'actors/edit/:id', component: EditActorComponent },
-
   { path: 'movietheaters', component: IndexMovieTheaterComponent },
   { path: 'movietheaters/create', component: CreateMovieTheaterComponent },
   { path: 'movietheaters/edit/:id', component: EditMovieTheaterComponent },
-
   { path: 'movies/create', component: CreateMovieComponent },
   { path: 'movies/edit/:id', component: EditMovieComponent },
   { path: 'movies/filter', component: MovieFilterComponent },
   { path: 'movie/:id', component: MovieDetailsComponent },
-
   { path: '**', redirectTo: '' },
 ];
 

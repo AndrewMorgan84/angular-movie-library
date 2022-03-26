@@ -1,9 +1,9 @@
-import { actorsMovieDTO } from './../actors.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatTable } from '@angular/material/table';
+import { actorsMovieDTO } from '../actors.model';
 import { ActorsService } from '../actors.service';
 
 @Component({
@@ -34,11 +34,12 @@ export class ActorsAutocompleteComponent implements OnInit {
   }
 
   optionSelected(event: MatAutocompleteSelectedEvent) {
+    console.log(event.option.value);
+
     this.control.patchValue('');
 
     if (
-      this.selectedActors.findIndex((a) => a.id === event.option.value.id) !==
-      -1
+      this.selectedActors.findIndex((x) => x.id == event.option.value.id) !== -1
     ) {
       return;
     }
@@ -57,7 +58,7 @@ export class ActorsAutocompleteComponent implements OnInit {
 
   dropped(event: CdkDragDrop<any[]>) {
     const previousIndex = this.selectedActors.findIndex(
-      (actor) => actor.name === event.item.data
+      (actor) => actor === event.item.data
     );
     moveItemInArray(this.selectedActors, previousIndex, event.currentIndex);
     this.table.renderRows();

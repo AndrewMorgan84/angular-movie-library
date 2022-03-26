@@ -1,6 +1,6 @@
 <form (submit)="saveChanges()" [formGroup]="form">
   <mat-form-field appearance="outline">
-    <mat-label>Title</mat-label>
+    <mat-label>Title*</mat-label>
     <input formControlName="title" matInput />
     <mat-error>The title field is required</mat-error>
   </mat-form-field>
@@ -21,7 +21,7 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 
-  <h4>Select the poster</h4>
+  <h4>Select the Poster</h4>
   <app-input-img
     [urlCurrentImage]="model?.poster"
     (onImageSelected)="onImageSelected($event)"
@@ -42,14 +42,14 @@
     [SelectedItems]="selectedGenres"
   ></app-multiple-selector>
 
-  <h4>Select Movie Theaters</h4>
+  <h4>Select the Movie Theaters</h4>
 
   <app-multiple-selector
     [NonSelectedItems]="nonSelectedMovieTheaters"
     [SelectedItems]="selectedMovieTheaters"
   ></app-multiple-selector>
 
-  <h4>Select the actors</h4>
+  <h4>Select the Actors</h4>
 
   <app-actors-autocomplete
     [selectedActors]="selectedActors"
