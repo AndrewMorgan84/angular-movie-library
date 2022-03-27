@@ -32,8 +32,8 @@
 
   <app-authorise-view>
     <ng-container authorised>
-      <span>Hello, </span>
-      <a mat-button>Logout</a>
+      <span>Hello, {{ securityService.getFieldFromJWT("email") }}</span>
+      <a mat-button (click)="securityService.logout()">Logout</a>
     </ng-container>
     <ng-container notAuthorised>
       <a mat-button routerLink="login">Login</a>
