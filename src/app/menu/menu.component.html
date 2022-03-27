@@ -27,4 +27,17 @@
       </div>
     </ng-container>
   </app-authorise-view>
+
+  <div class="space"></div>
+
+  <app-authorise-view>
+    <ng-container authorised>
+      <span>Hello, </span>
+      <a mat-button>Logout</a>
+    </ng-container>
+    <ng-container notAuthorised>
+      <a mat-button routerLink="login">Login</a>
+      <a mat-button routerLink="register">Register</a>
+    </ng-container>
+  </app-authorise-view>
 </mat-toolbar>

@@ -1,3 +1,4 @@
+import { RegisterComponent } from './security/register/register.component';
 import { LoginComponent } from './security/login/login.component';
 import { IsAdminGuard } from './is-admin.guard';
 import { MovieDetailsComponent } from './movies/movie-details/movie-details.component';
@@ -77,6 +78,7 @@ const routes: Routes = [
   { path: 'movies/filter', component: MovieFilterComponent },
   { path: 'movie/:id', component: MovieDetailsComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '' },
 ];
 
