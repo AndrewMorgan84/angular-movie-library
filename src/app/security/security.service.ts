@@ -11,8 +11,9 @@ export class SecurityService {
   constructor(private http: HttpClient) {}
 
   private apiURL = environment.apiURL + '/accounts';
-  private tokenKey: string = 'token';
-  private expirationTokenKey: string = 'token-expiration';
+  private readonly tokenKey: string = 'token';
+  private readonly expirationTokenKey: string = 'token-expiration';
+  private readonly roleField = 'role';
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem(this.tokenKey);
@@ -45,7 +46,7 @@ export class SecurityService {
   }
 
   getRole(): string {
-    return '';
+    return this.getFieldFromJWT(this.roleField);
   }
 
   register(
@@ -70,5 +71,9 @@ export class SecurityService {
       this.expirationTokenKey,
       authenticationResponse.expiration.toString()
     );
+  }
+
+  getToken() {
+    return localStorage.getItem(this.tokenKey);
   }
 }
