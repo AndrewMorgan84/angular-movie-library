@@ -17,6 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateGenreComponent } from './genres/create-genre/create-genre.component';
+import { UsersIndexComponent } from './security/users-index/users-index.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -79,6 +80,11 @@ const routes: Routes = [
   { path: 'movie/:id', component: MovieDetailsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  {
+    path: 'users',
+    component: UsersIndexComponent,
+    canActivate: [IsAdminGuard],
+  },
   { path: '**', redirectTo: '' },
 ];
 

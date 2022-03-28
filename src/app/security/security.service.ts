@@ -1,6 +1,10 @@
 import { environment } from './../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { userCredentials, authenticationResponse } from './security.models';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import {
+  userCredentials,
+  authenticationResponse,
+  userDTO,
+} from './security.models';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -14,6 +18,32 @@ export class SecurityService {
   private readonly tokenKey: string = 'token';
   private readonly expirationTokenKey: string = 'token-expiration';
   private readonly roleField = 'role';
+
+  getUsers(page: number, recordsPerPage: number): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('page', page.toString());
+    params = params.append('recordsPerPage', recordsPerPage.toString());
+    return this.http.get<userDTO[]>(`${this.apiURL}/listusers`, {
+      observe: 'response',
+      params,
+    });
+  }
+
+  makeAdmin(userId: string) {
+    const headers = new HttpHeaders('Content-Type: application/json');
+    return this.http.post(`${this.apiURL}/makeadmin`, JSON.stringify(userId), {
+      headers,
+    });
+  }
+
+  removeAdmin(userId: string) {
+    const headers = new HttpHeaders('Content-Type: application/json');
+    return this.http.post(
+      `${this.apiURL}/removeadmin`,
+      JSON.stringify(userId),
+      { headers }
+    );
+  }
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem(this.tokenKey);
